@@ -31,7 +31,7 @@ def wishme():                                 # declaring wishme function
 
 
 
-def takeCommand():
+def takeCommand():          # It takes microphone input from the user and returns string output
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print("Listening...")
@@ -42,11 +42,11 @@ def takeCommand():
     try:
 
         print("recognising...")
-        quary=r.recognize_google(audio, language='en-in')
-        print(f"user said: {quary}\n")
+        quary=r.recognize_google(audio, language='en-in')   # here we using google for voice recognition
+        #print(f"user said: {quary}")
     
     except Exception as e:
-        print("say that again please")
+        print("say that again please")         # It ill be printed in case of improper voic
         return "none"
     return quary
 
@@ -58,7 +58,7 @@ if __name__=="__main__":                      # calling speak function inside my
 
      quary=takeCommand().lower()
 
-     if 'wikipedia' in quary:
+     if 'wikipedia' in quary:                     # search on wikipedia 
          speak('searching wikipedia..')
          quary = quary.replace("wikipedia","")
          results = wikipedia.summary(quary, sentences=2)
@@ -66,24 +66,43 @@ if __name__=="__main__":                      # calling speak function inside my
          print(results)
          speak(results)
 
-     elif 'open youtube' in quary:
+     elif 'open youtube' in quary:        #opening youtube
          webbrowser.open("youtube.com")
         
-     elif 'open google' in quary:
+     elif 'open google' in quary:           #opening google
          webbrowser.open("google.com")
 
-     elif 'open stackoverflow' in quary:
+     elif 'open stackoverflow' in quary:     #opening stackoverflow
          webbrowser.open("stackoverflow.com")
 
-     elif 'play music' in quary:
+     elif 'play music' in quary:            # play music by follow the given path
          music_dir = 'C:\\Users\\User\\Downloads\\music'
          songs = os.listdir(music_dir)
          print(songs)
          os.startfile(os.path.join(music_dir, songs[3])) 
+    
+     elif 'search on chrome' in quary:        # we can search on chrome by using this function
+        speak(" what should i search sir ")
+        search = takeCommand()
+        chromepath = 'C://Program Files//Google//Chrome//Application//chrome.exe %s'
+        webbrowser.get(chromepath).open_new_tab(search+'.com')
+
+     elif 'open news' in quary:                  # check news only saying open news
+        webbrowser.open('dainikbhaskar.com')    
+
+     elif 'headache tablet' in quary:                     # we attache multiple tablets and our Ai tell us which tablet you take for that particular disease
+        speak("you can take a aspirin tablet it will give you some relief ")
+
+     elif 'fever' in quary:                         # like that
+        speak("you can take a paracetamol tablet")
+        
+     elif 'current time' in quary:                     # shows present time
+            strTime = datetime.datetime.now().strftime("%H:%M:%S")    
+            speak("Sir, the time is {strTime}")
 
      elif 'quit' in quary:
         quit()
-     elif 'exit' in quary:
+     elif 'exit' in quary:         # exit by giving exit command
         break      
      else:
         speak("i can't listen")           
